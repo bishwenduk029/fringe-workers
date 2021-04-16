@@ -1,0 +1,7 @@
+name = "fringe"
+type = "webpack"
+account_id = "a11caee00822669726ee6f0b2af566db"
+workers_dev = true
+route = ""
+zone_id = ""
+webpack_config = "webpack.config.js"
