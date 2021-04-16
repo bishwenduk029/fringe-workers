@@ -22,9 +22,9 @@ For example query residing at `/graphql/space/index.graphql` is mapped to `/grap
 
 ### 👩 💻 Developing
 
-1.) Inside graphql folder add your queries/mutations in plain .graphql
-2.) Provide the URL for your GraphQL API in wrangler.toml
-3.) Now open any REST client of your choice (say POSTMAN)
+1.) Inside graphql folder add your queries/mutations in plain .graphql  
+2.) Provide the URL for your GraphQL API in wrangler.toml  
+3.) Now open any REST client of your choice (say POSTMAN)  
 4.) Start accessing your REST endpoints via POST method.
 
 ### 👀 Previewing and Publishing
@@ -33,9 +33,9 @@ For information on how to preview and publish your worker, please see the [Wrang
 
 ### Roadmap
 
-1.) Add support for normalized caching for GraphQL on Cloudflare KV ( in-progress )
+1.) Add support for normalized caching for GraphQL on Cloudflare KV ( in-progress )  
 2.) Add similar support for .sql files
 
-## 🤢 Feedback
+## Feedback
 
 If you have any feedback or enhancement ideas please feel free to share them [here](https://github.com/bishwenduk029/fringe-workers/issues).
