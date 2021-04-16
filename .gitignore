@@ -2,3 +2,6 @@ dist
 node_modules
 transpiled
 worker
+.cargo-ok
+yarn.lock
+package-lock.json
