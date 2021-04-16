@@ -44,7 +44,9 @@ export function resolveGraphqlPath(graphqlPath: string, keys: [string]) {
    * the end. This helps discover dynamic nested schema pages.
    */
   if (!graphql) {
-    graphql = graphQlMap.find((p) => p.test.test(graphqlPath + '/index'))
+    graphql = graphQlMap.find(
+      (p) => `/graphql${p.graphqlPath}` === graphqlPath + '/index',
+    )
   }
 
   if (!graphql) {
