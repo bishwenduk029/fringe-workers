@@ -71,11 +71,11 @@ export async function executeGQL(gqlNode: DocumentNode, variables = {}) {
   try {
     //let response = await getFromCache(cache, updatedAST)
     //if (!response || !response.data) {
-    const result = await fetch('https://api.spacex.land/graphql', {
+    const result = await fetch(GRAPHQL_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        query: gqlNode?.loc?.source.body,
+        query: gqlNode.loc.source.body,
         variables,
       }),
     })
