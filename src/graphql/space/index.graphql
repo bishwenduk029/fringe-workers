@@ -1,5 +1,5 @@
-query {
-  launchesPast(limit: 4) {
+query test($limit: Int!) {
+  launchesPast(limit: $limit) {
     __typename
     mission_name
     launch_date_local

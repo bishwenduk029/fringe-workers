@@ -1,5 +1,8 @@
-export function resolveGraphqlPath(graphqlPath, keys) {
-  const graphqlsMap = keys.map((graphql) => {
+import { DocumentNode } from 'graphql'
+import { Cache } from '../cache'
+
+export function resolveGraphqlPath(graphqlPath: string, keys: [string]) {
+  const graphQlMap = keys.map((graphql) => {
     let test = graphql
 
     test = test
@@ -18,12 +21,12 @@ export function resolveGraphqlPath(graphqlPath, keys) {
    * Quite possible there is no Graphql file. In which case return null
    */
 
-  if (!graphqlsMap.length) return null
+  if (!graphQlMap.length) return null
 
   /**
    * First, try to find an exact match.
    */
-  let graphql = graphqlsMap.find(
+  let graphql = graphQlMap.find(
     (p) => graphqlPath === `/graphql${p.graphqlPath}`,
   )
   if (!graphql) {
@@ -31,9 +34,9 @@ export function resolveGraphqlPath(graphqlPath, keys) {
      * Sort pages to include those with `index` in the name first, because
      * we need those to get matched more greedily than their dynamic counterparts.
      */
-    graphqlsMap.sort((a) => (a.graphql.includes('schema') ? -1 : 1))
+    graphQlMap.sort((a) => (a.graphql.includes('index') ? -1 : 1))
 
-    graphql = graphqlsMap.find((p) => p.test.test(graphqlPath))
+    graphql = graphQlMap.find((p) => p.test.test(graphqlPath))
   }
 
   /**
@@ -41,18 +44,17 @@ export function resolveGraphqlPath(graphqlPath, keys) {
    * the end. This helps discover dynamic nested schema pages.
    */
   if (!graphql) {
-    graphql = graphqlsMap.find((p) => p.test.test(graphqlPath + '/schema'))
+    graphql = graphQlMap.find((p) => p.test.test(graphqlPath + '/index'))
   }
 
   if (!graphql) {
-    console.log('I am wrong')
     return null
   }
 
   return graphql
 }
 
-export function getGraphql(graphqlPath, context) {
+export function getGraphql(graphqlPath: string, context: any) {
   try {
     const resolvedGraphqlFile = resolveGraphqlPath(graphqlPath, context.keys())
     if (resolvedGraphqlFile) {
@@ -65,7 +67,7 @@ export function getGraphql(graphqlPath, context) {
   return null
 }
 
-export async function executeGQL(gqlNode, variables = {}) {
+export async function executeGQL(gqlNode: DocumentNode, variables = {}) {
   try {
     //let response = await getFromCache(cache, updatedAST)
     //if (!response || !response.data) {
@@ -73,7 +75,7 @@ export async function executeGQL(gqlNode, variables = {}) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        query: gqlNode.loc.source.body,
+        query: gqlNode?.loc?.source.body,
         variables,
       }),
     })
@@ -87,7 +89,8 @@ export async function executeGQL(gqlNode, variables = {}) {
     // }
     return JSON.stringify(response.data)
   } catch (error) {
-    logger.error(error)
+    console.log(error)
+    return JSON.stringify(error)
   }
 }
 

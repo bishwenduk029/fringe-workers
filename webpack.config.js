@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const mode = process.env.NODE_ENV || 'production'
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     filename: `worker.${mode}.js`,
     path: path.join(__dirname, 'dist'),

@@ -1,6 +1,6 @@
-# ʕ •́؈•̀) `workers-typescript-template`
+`fringe-workers`
 
-A batteries included template for kick starting a TypeScript Cloudflare worker project.
+A experimental project to execute GraphQL queries/mutations on Cloudflare Edge.
 
 ## 🔋 Getting Started
 
@@ -9,29 +9,33 @@ This template is meant to be used with [Wrangler](https://github.com/cloudflare/
 To generate using Wrangler, run this command:
 
 ```bash
-wrangler generate my-ts-project https://github.com/EverlastingBugstopper/worker-typescript-template
+wrangler generate my-ts-project https://github.com/bishwenduk029/fringe-workers
 ```
+
+### ✏️ Concept
+
+The purpose of project is to execute any kind of DB/GraphQL queries/mutations on Cloudflare's amazing and secure EDGE network.
+
+File system based routing - Any .graphql file inside graphql folder, becomes accessible at REST endpoint `/graphql/*`
+
+For example query residing at `/graphql/space/index.graphql` is mapped to `/graphql/space`(Method = POST)
 
 ### 👩 💻 Developing
 
-[`src/index.js`](./src/index.ts) calls the request handler in [`src/handler.ts`](./src/handler.ts), and will return the [request method](https://developer.mozilla.org/en-US/docs/Web/API/Request/method) for the given request.
-
-### 🧪 Testing
-
-This template comes with mocha tests which simply test that the request handler can handle each request method. `npm test` will run your tests.
-
-### ✏️ Formatting
-
-This template uses [`prettier`](https://prettier.io/) to format the project. To invoke, run `npm run format`.
+1.) Inside graphql folder add your queries/mutations in plain .graphql
+2.) Provide the URL for your GraphQL API in wrangler.toml
+3.) Now open any REST client of your choice (say POSTMAN)
+4.) Start accessing your REST endpoints via POST method.
 
 ### 👀 Previewing and Publishing
 
 For information on how to preview and publish your worker, please see the [Wrangler docs](https://developers.cloudflare.com/workers/tooling/wrangler/commands/#publish).
 
-## 🤢 Issues
+### Roadmap
 
-If you run into issues with this specific project, please feel free to file an issue [here](https://github.com/cloudflare/workers-typescript-template/issues). If the problem is with Wrangler, please file an issue [here](https://github.com/cloudflare/wrangler/issues).
+1.) Add support for normalized caching for GraphQL on Cloudflare KV ( in-progress )
+2.) Add similar support for .sql files
 
-## ⚠️ Caveats
+## 🤢 Feedback
 
-The `service-worker-mock` used by the tests is not a perfect representation of the Cloudflare Workers runtime. It is a general approximation. We recommend that you test end to end with `wrangler dev` in addition to a [staging environment](https://developers.cloudflare.com/workers/tooling/wrangler/configuration/environments/) to test things before deploying.
+If you have any feedback or enhancement ideas please feel free to share them [here](https://github.com/bishwenduk029/fringe-workers/issues).
